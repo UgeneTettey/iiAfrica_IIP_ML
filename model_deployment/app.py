@@ -12,7 +12,10 @@ model = pickle.load(open(model_path, 'rb'))
 
 # categorical features
 categorical_features = {
-    'country':['France','Spain','Germany']
+    'region':['East Africa','West Africa','Central Africa'],
+    'gender':['Male', 'Female'],
+    'credit_card':['yes', 'no'],
+    'active_member':['yes', 'no']
 }
 
 # define ecndoder dictionary
@@ -20,35 +23,30 @@ encoder_dict = {feature: LabelEncoder().fit(values) for feature, values in categ
 
 # ==================================================================
 # Streamlit app configuration
-st.set_page_config(page_title="Customer Churn Prediction", page_icon=":bar_chart:", layout="centered", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Customer Eligibility Prediction", page_icon=":mag:", layout="centered", initial_sidebar_state="expanded")
 
-# Adding a banner image
-# st.image("connected.jpg", use_column_width=True)
+
 
 # title and header
-st.title('Telco. Customer Churn Prediction')
+st.title('Loan Eligibility Prediction')
 st.sidebar.header('Customer Details')
 
 input_data = {}
 
-# creating input boxes for each feature: [ ['REGION', 'MONTANT', 'FREQUENCE_RECH', 'REVENUE', 'ARPU_SEGMENT', 'FREQUENCE', 'REGULARITY', 'TENURE_LE']]
-
-# '''we use only 8 features since they are the top 8 features
-# Important Note: This app does capture comprehensive data of each client.
-# Future work must include fields to capture other data inputs for purposes of future projects
-# '''
-# ---------------------------------------------------------
 
 
-# input_data['user_id'] = st.sidebar.text_input('customer ID')
-input_data['REGION'] = st.sidebar.selectbox('REGION', options=categorical_features['REGION'])
-input_data['MONTANT'] = st.sidebar.number_input('MONTANT: Top-Up Amount')
-input_data['FREQUENCE_RECH'] = st.sidebar.number_input('Number of Times Client Refilled')
-input_data['REVENUE'] = st.sidebar.number_input('Revenue')
-input_data['ARPU_SEGMENT'] = st.sidebar.number_input('Income over 90 Days')
-input_data['FREQUENCE'] = st.sidebar.number_input('Number of Times Client Made an income')
-input_data['REGULARITY'] = st.sidebar.number_input('Regularity')
-input_data['TENURE_LE'] = st.sidebar.number_input('Average Duration in Network (Months)', value=9.0, step=0.5)
+input_data['gender'] = st.sidebar.selectbox('Gender', options=categorical_features['gender'])
+input_data['age'] = st.sidebar.number_input('Age')
+input_data['region'] = st.sidebar.selectbox('Region', options=categorical_features['region'])
+input_data['tenure'] = st.sidebar.number_input('Tenure')
+input_data['balance'] = st.sidebar.number_input('Account Balance')
+input_data['products_number'] = st.sidebar.number_input('Number of Products')
+input_data['active_member'] = st.sidebar.selectbox('Active Member', options=categorical_features['active_member'])
+input_data['credit_card'] = st.sidebar.selectbox('Credit Card', options=categorical_features['credit_card'])
+input_data['estimated_salary'] = st.sidebar.number_input('Estimated Salary')
+input_data['credit_score'] = st.sidebar.number_input('Credit Score')
+
+
 
 # convert input data into dataframe
 input_df = pd.DataFrame([input_data])
@@ -68,10 +66,10 @@ if st.button('PREDICT'):
         prediction = model.predict(input_df)
         if prediction[0] == 1:
             # st.write('The customer is likely to churn.')
-            st.markdown("<h3 style='color: red;'>The customer is likely to churn.</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color: red;'>The customer is not eligible for loan.</h3>", unsafe_allow_html=True)
         else:
             # st.write('The customer is not likely to churn.')
-            st.markdown("<h3 style='color: green;'>The customer is not likely to churn.</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='color: green;'>The customer is eligible for loan.</h3>", unsafe_allow_html=True)
     except Exception as e:
         st.write("Error during prediction:", str(e))
 
@@ -79,6 +77,6 @@ if st.button('PREDICT'):
 # Additional sections
 st.markdown("## How It Works")
 st.write("""
-The Telco Customer Churn Prediction app allows you to input customer details and predict the likelihood of churn.
+The Bank Customer Eligibilty Prediction app allows you to input customer details and predict the eligibility of clients for loans.
 Simply enter the required details in the sidebar and click the 'PREDICT' button.
 """)
