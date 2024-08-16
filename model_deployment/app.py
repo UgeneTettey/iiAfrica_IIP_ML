@@ -102,7 +102,7 @@ import os
 
 # Load the XGBoost model
 # --------------------------
-model_path = os.path.join(os.getcwd(), 'xgb_model.json')  # Adjust the file extension to match the correct model format
+model_path = os.path.join(os.getcwd(), 'xgb_model.pkl')  # Adjust the file extension to match the correct model format
 model = xgb.Booster()
 model.load_model(model_path)
 
