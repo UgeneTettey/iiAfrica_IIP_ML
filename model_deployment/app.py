@@ -34,17 +34,17 @@ st.sidebar.header('Customer Details')
 input_data = {}
 
 
-
+input_data['credit_score'] = st.sidebar.number_input('Credit Score')
+input_data['region'] = st.sidebar.selectbox('Region', options=categorical_features['region'])
 input_data['gender'] = st.sidebar.selectbox('Gender', options=categorical_features['gender'])
 input_data['age'] = st.sidebar.number_input('Age', min_value=0, max_value=120, step=1, format="%d")
-input_data['region'] = st.sidebar.selectbox('Region', options=categorical_features['region'])
 input_data['tenure'] = st.sidebar.number_input('Tenure')
 input_data['balance'] = st.sidebar.number_input('Account Balance')
 input_data['products_number'] = st.sidebar.number_input('Number of Products')
-input_data['active_member'] = st.sidebar.selectbox('Active Member', options=categorical_features['active_member'])
 input_data['credit_card'] = st.sidebar.selectbox('Credit Card', options=categorical_features['credit_card'])
+input_data['active_member'] = st.sidebar.selectbox('Active Member', options=categorical_features['active_member'])
 input_data['estimated_salary'] = st.sidebar.number_input('Estimated Salary')
-input_data['credit_score'] = st.sidebar.number_input('Credit Score')
+
 
 
 
