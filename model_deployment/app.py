@@ -40,7 +40,7 @@ input_data['gender'] = st.sidebar.selectbox('Gender', options=categorical_featur
 input_data['age'] = st.sidebar.number_input('Age', min_value=0, max_value=120, step=1, format="%d")
 input_data['tenure'] = st.sidebar.number_input('Tenure', min_value=0, max_value=100, step=1, format="%d")
 input_data['balance'] = st.sidebar.number_input('Account Balance')
-input_data['products_number'] = st.sidebar.number_input('Number of Products')
+input_data['products_number'] = st.sidebar.number_input('Number of Products', min_value=0, max_value=20, step=1, format="%d")
 input_data['credit_card'] = st.sidebar.selectbox('Credit Card', options=categorical_features['credit_card'])
 input_data['active_member'] = st.sidebar.selectbox('Active Member', options=categorical_features['active_member'])
 input_data['estimated_salary'] = st.sidebar.number_input('Estimated Salary')
