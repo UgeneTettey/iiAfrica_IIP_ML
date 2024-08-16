@@ -96,15 +96,17 @@
 
 import streamlit as st
 import pandas as pd
+import pickle
 import xgboost as xgb  # Import XGBoost instead of using pickle
 from sklearn.preprocessing import LabelEncoder
 import os
 
 # Load the XGBoost model
 # --------------------------
-model_path = os.path.join(os.getcwd(), 'xgb_model.pkl')  # Adjust the file extension to match the correct model format
-model = xgb.Booster()
-model.load_model(model_path)
+# model_path = os.path.join(os.getcwd(), 'xgb_model.pkl')  # Adjust the file extension to match the correct model format
+model = pickle.load(open('xgb_model.pkl', 'rb'))
+# model = xgb.Booster()
+# model.load_model(model_path)
 
 # Categorical features
 categorical_features = {
