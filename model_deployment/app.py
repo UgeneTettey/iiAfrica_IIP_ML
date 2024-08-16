@@ -36,7 +36,7 @@ input_data = {}
 
 
 input_data['gender'] = st.sidebar.selectbox('Gender', options=categorical_features['gender'])
-input_data['age'] = st.sidebar.number_input('Age')
+input_data['age'] = st.sidebar.number_input('Age', min_value=0, max_value=120, step=1, format="%d")
 input_data['region'] = st.sidebar.selectbox('Region', options=categorical_features['region'])
 input_data['tenure'] = st.sidebar.number_input('Tenure')
 input_data['balance'] = st.sidebar.number_input('Account Balance')
