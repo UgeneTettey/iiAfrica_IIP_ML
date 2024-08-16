@@ -10,7 +10,7 @@ from sklearn.preprocessing import LabelEncoder
 # model_path = os.path.join(os.getcwd(), 'C:/Users/Eugene/Desktop/iiAfrica/IIP/ML/day_4/model_deployment/xgb_model.pkl')
 # model = pickle.load(open(model_path, 'rb'))
 
-model_path = 'C:/Users/Eugene/Desktop/iiAfrica/IIP/ML/day_4/model_deployment/xgb_model.pkl'
+model_path = os.path.join(os.path.dirname(__file__), 'xgb_model.pkl')
 model = pickle.load(open(model_path, 'rb'))
 
 # categorical features
