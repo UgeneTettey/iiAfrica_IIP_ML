@@ -5,12 +5,18 @@ from sklearn.preprocessing import LabelEncoder
 
 
 # load the model
+# --------------------------
+
 # model = pickle.load(open('new_xgb_model.pkl', 'rb'))
-import os
+# import os
 # model_path = os.path.join(os.getcwd(), 'C:/Users/Eugene/Desktop/iiAfrica/IIP/ML/day_4/model_deployment/xgb_model.pkl')
 # model = pickle.load(open(model_path, 'rb'))
 
-model_path = os.path.join(os.path.dirname(__file__), 'xgb_model.pkl')
+# model_path = os.path.join(os.path.dirname(__file__), 'xgb_model.pkl')
+# model = pickle.load(open(model_path, 'rb'))
+
+import os
+model_path = os.path.join(os.getcwd(), 'xgb_model.pkl')
 model = pickle.load(open(model_path, 'rb'))
 
 # categorical features
@@ -78,7 +84,7 @@ if st.button('PREDICT'):
 
 
 # Additional sections
-st.markdown("## How It Works")
+st.markdown("## *How It Works*")
 st.write("""
 The Bank Customer Eligibilty Prediction app allows you to input customer details and predict the eligibility of clients for loans.
 Simply enter the required details in the sidebar and click the 'PREDICT' button.
