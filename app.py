@@ -119,45 +119,51 @@ categorical_features = {
 # Define encoder dictionary
 encoder_dict = {feature: LabelEncoder().fit(values) for feature, values in categorical_features.items()}
 
-# Streamlit app configuration
-st.set_page_config(page_title="Customer Eligibility Prediction", page_icon=":mag:", layout="centered", initial_sidebar_state="expanded")
+def main():
 
-# Title and header
-st.title('Loan Eligibility Prediction')
-st.sidebar.header('Customer Details')
 
-input_data = {}
+    # Streamlit app configuration
+    st.set_page_config(page_title="Customer Eligibility Prediction", page_icon=":mag:", layout="centered", initial_sidebar_state="expanded")
 
-input_data['credit_score'] = st.sidebar.number_input('Credit Score', min_value=0, step=1, format="%d")
-input_data['region'] = st.sidebar.selectbox('Region', options=categorical_features['region'])
-input_data['gender'] = st.sidebar.selectbox('Gender', options=categorical_features['gender'])
-input_data['age'] = st.sidebar.number_input('Age', min_value=0, max_value=120, step=1, format="%d")
-input_data['tenure'] = st.sidebar.number_input('Tenure', min_value=0, max_value=100, step=1, format="%d")
-input_data['balance'] = st.sidebar.number_input('Account Balance')
-input_data['products_number'] = st.sidebar.number_input('Number of Products', min_value=0, max_value=20, step=1, format="%d")
-input_data['credit_card'] = st.sidebar.selectbox('Credit Card', options=categorical_features['credit_card'])
-input_data['active_member'] = st.sidebar.selectbox('Active Member', options=categorical_features['active_member'])
-input_data['estimated_salary'] = st.sidebar.number_input('Estimated Salary')
+    # Title and header
+    st.title('Loan Eligibility Prediction')
+    st.sidebar.header('Customer Details')
 
-# Convert input data into dataframe
-input_df = pd.DataFrame([input_data])
+    input_data = {}
 
-# Encode categorical features
-for feature, encoder in encoder_dict.items():
-    input_df[feature] = encoder.transform(input_df[feature])
+    input_data['credit_score'] = st.sidebar.number_input('Credit Score', min_value=0, step=1, format="%d")
+    input_data['region'] = st.sidebar.selectbox('Region', options=categorical_features['region'])
+    input_data['gender'] = st.sidebar.selectbox('Gender', options=categorical_features['gender'])
+    input_data['age'] = st.sidebar.number_input('Age', min_value=0, max_value=120, step=1, format="%d")
+    input_data['tenure'] = st.sidebar.number_input('Tenure', min_value=0, max_value=100, step=1, format="%d")
+    input_data['balance'] = st.sidebar.number_input('Account Balance')
+    input_data['products_number'] = st.sidebar.number_input('Number of Products', min_value=0, max_value=20, step=1, format="%d")
+    input_data['credit_card'] = st.sidebar.selectbox('Credit Card', options=categorical_features['credit_card'])
+    input_data['active_member'] = st.sidebar.selectbox('Active Member', options=categorical_features['active_member'])
+    input_data['estimated_salary'] = st.sidebar.number_input('Estimated Salary')
 
-# Create the Predict button
-if st.button('PREDICT'):
-    try:
-        # Convert the DataFrame to DMatrix for XGBoost prediction
-        dmatrix = xgb.DMatrix(input_df)
-        prediction = model.predict(dmatrix)
-        if prediction[0] == 1:
-            st.markdown("<h3 style='color: red;'>The customer is not eligible for a loan.</h3>", unsafe_allow_html=True)
-        else:
-            st.markdown("<h3 style='color: green;'>The customer is eligible for a loan.</h3>", unsafe_allow_html=True)
-    except Exception as e:
-        st.write("Error during prediction:", str(e))
+    # Convert input data into dataframe
+    input_df = pd.DataFrame([input_data])
+
+    # Encode categorical features
+    for feature, encoder in encoder_dict.items():
+        input_df[feature] = encoder.transform(input_df[feature])
+
+    # Create the Predict button
+    if st.button('PREDICT'):
+        try:
+            # Convert the DataFrame to DMatrix for XGBoost prediction
+            # dmatrix = xgb.DMatrix(input_df)
+            prediction = model.predict(input_df)
+            if prediction[0] == 1:
+                st.markdown("<h3 style='color: red;'>The customer is not eligible for a loan.</h3>", unsafe_allow_html=True)
+            else:
+                st.markdown("<h3 style='color: green;'>The customer is eligible for a loan.</h3>", unsafe_allow_html=True)
+        except Exception as e:
+            st.write("Error during prediction:", str(e))
+
+if __name__=='__main__':
+    main()
 
 # Additional sections
 st.markdown("## *How It Works*")
